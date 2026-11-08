@@ -24,7 +24,8 @@ class ClassroomRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:500',
-            'vacancies' => 'required|numeric|min:1|max:500'
+            'vacancies' => 'required|numeric|min:1|max:500',
+            'course_id' => 'required|integer|exists:courses,id',
         ];
     }
 

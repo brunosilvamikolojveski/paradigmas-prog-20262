@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClassroomRequest;
+use App\Http\Requests\ClassroomUserRequest;
 use App\Http\Resources\ClassroomResource;
 use App\Http\Services\ClassroomService;
+use App\Http\Services\ClassroomUserService;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
-    public function __construct(private ClassroomService $classroomService)
+    public function __construct(private ClassroomService $classroomService, private ClassroomUserService $classroomUserService)
     {}
 
     /**
@@ -53,5 +55,14 @@ class ClassroomController extends Controller
         $this->classroomService->destroy($id);
 
         return response()->noContent();
+    }
+
+    public function manageUser(ClassroomUserRequest $request, string $classroom)
+    {
+        return response()->json($this->classroomUserService->manage(
+            (int) $classroom,
+            (int) $request->validated('user_id'),
+            $request->validated('action'),
+        ));
     }
 }

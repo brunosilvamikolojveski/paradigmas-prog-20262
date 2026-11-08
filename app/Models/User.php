@@ -33,6 +33,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function classrooms()
+    {
+        return $this->belongsToMany(Classroom::class)->withTimestamps();
+    }
+
     /**
      * Get the attributes that should be cast.
      *

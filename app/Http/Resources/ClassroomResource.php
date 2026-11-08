@@ -18,6 +18,10 @@ class ClassroomResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'vacancies' => $this->vacancies,
+            'course' => $this->whenLoaded('course', fn () => [
+                'id' => $this->course->id,
+                'name' => $this->course->name,
+            ]),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
